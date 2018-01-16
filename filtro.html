@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Filtros con Vuejs</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+	<div id="main" class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h1>Vuejs - Filtros</h1>
+				<button v-on:click="getUsers" class="btn btn-primary" v-if="!lists.length" class="form-control">Listar</button>
+				<ul class="list-group" v-else>
+					<li class="list-group-item">
+						<input type="text" placeholder="Buscar" v-model="name">
+					</li>
+					<li v-for="item in searchUser" class="list-group-item"> {{ item.name }} </li>
+				</ul>
+			</div>
+			<div class="col-sm-8">
+				<h1>JSON</h1>
+				<pre>
+					{{ $data | json }}
+				</pre>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+
+	<script>
+		new Vue({
+			el: '#main',
+			data: {
+				lists: [],
+				name: ''
+			},
+			methods: {
+				getUsers: function(){
+					let urlUsers = 'https://jsonplaceholder.typicode.com/users';
+					axios.get(urlUsers).then(response=>{
+						this.lists = response.data
+					});
+				}
+			},
+			computed: {
+				searchUser: function(){
+					return this.lists.filter((item) => item.name.includes(this.name))
+				}
+			}
+		})
+	</script>
+	
+</body>
+</html>
