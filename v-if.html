@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vuejs - V-if V-else Template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+    <div id="main" class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <template v-if="!message">
+                    <h3>Escribe tu sugerencia</h3>
+                    <p>El equipo de soporte responde en maximo 24 horas</p>
+                    <p><em>Podrias utilizar Twitter para comunicarte</em></p>
+                    <!-- <h3 v-if="message">Presiona ENTER para enviar mensaje</h3> -->
+                </template>
+                <h3 v-else>Presiona ENTER para enviar mensaje</h3>
+                <textarea v-model="message" class="form-control" ></textarea>
+            </div>
+            <div class="col-md-7">
+                <h3>JSON</h3>
+                <pre>
+                    {{ $data }}
+                </pre>
+            </div>
+        </div>
+    </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+      <script>
+        new Vue({
+            el: '#main',
+            data: {
+                message: ''
+            }
+        })
+      </script>
+</body>
+</html>
